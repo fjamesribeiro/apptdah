@@ -1,0 +1,40 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragmentos :: head}" />
+
+<body>
+	<header th:replace="~{fragmentos :: header}" />
+	<div class="container">
+		<form method="post" action="/usuario" th:object="${usuario}">
+			<h2></h2>
+			<table>
+				<tr>
+					<th>Dados</th>
+					<th>Valor</th>
+				</tr>
+				<tr>
+					<td>Nome</td>
+					<td th:text="${given_name}"></td>
+				</tr>
+				<tr>
+					<td>Sobrenome</td>
+					<td th:text="${family_name}"></td>
+				</tr>
+				<tr>
+					<td>Email</td>
+					<td th:text="${email}"></td>
+				</tr>
+				<tr>
+					<td>Picture</td>
+					<td><img th:src="${picture}" alt="Profile Picture"></td>
+				</tr>
+			</table>
+			<div class="mb-3">
+				<button type="submit" class="btn btn-primary">Completar Cadastro</button>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

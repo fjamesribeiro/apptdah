@@ -1,0 +1,68 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragmentos :: head}" />
+
+<body>
+	<header th:replace="~{fragmentos :: header}" />
+
+	<div class="container">
+
+		<form method="post" action="/rpd" th:object="${rpd}">
+
+			<input type="hidden" th:field="*{id}" />
+
+			<input type="hidden" th:field="*{paciente.id}" />
+
+			<div class="mb-3">
+				<label class="form-label" for="data">Data:</label>
+				<label class="form-label" id="data" th:text="*{data}" />
+			</div>
+
+			<div class="mb-3" role="group">
+				<label for="humor" class="form-label">Humor:</label>
+				<label class="form-label" id="humor" th:text="*{humor.texto}" />
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label" for="situacao">Situação:</label>
+				<label class="form-label" id="situacao" th:text="*{situacao}" />
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label" for="pensamento">Pensamento:</label>
+				<label class="form-label" id="pensamento" th:text="*{pensamento}" />
+			</div>
+
+			<div class="mb-3" role="group">
+				<label class="form-label">Sentimentos:</label>
+				<th:block th:each="sentimento : *{sentimentos}">
+					<div class="form-check form-switch">
+						<label class="form-label" id="sentimento" th:text="${sentimento.texto}" />
+					</div>
+				</th:block>
+			</div>
+
+			<div class="mb-3" role="group">
+				<label class="form-label">Reações:</label>
+				<th:block th:each="fisiologia : *{fisiologias}">
+					<div class="form-check form-switch">
+						<label class="form-label" id="fisiologia" th:text="${fisiologia.texto}" />
+					</div>
+				</th:block>
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label" for="comportamento">Comportamento:</label>
+				<label class="form-label" id="comportamento" th:text="*{comportamento}" />
+			</div>
+
+			<div class="mb-3" role="group">
+				<button type="button" class="btn btn-primary" onclick="window.history.back()">Voltar</button>
+			</div>
+
+		</form>
+	</div>
+</body>
+
+</html>

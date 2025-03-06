@@ -1,0 +1,29 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragmentos :: head}" />
+
+<body>
+	<header th:replace="~{fragmentos :: header}" />
+
+	<div class="container p-4">
+		<div class="row">
+			<div th:each="paciente: ${pacientes}" class="card text-center text-white bg-primary mb-3 mr-3 col-lg-6">
+				<div class="card-header" th:text="${paciente.nome + ' ' + paciente.sobrenome}" />
+				<div class="card-body">
+					<h5 class="card-title" th:text=" ${paciente.email}"></h5>
+					<a th:href="@{'/pac/edit/'+${paciente.id}}" class="card-link text-white">Editar</a>
+					<a th:href="@{'/pac/del/'+${paciente.id}}" class="card-link text-white">Deletar</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="mb-3 p-3" role="group">
+		<button type="button" class="btn btn-primary" onclick="window.history.back()">
+			Voltar
+		</button>
+	</div>
+</body>
+
+</html>

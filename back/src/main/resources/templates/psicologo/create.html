@@ -1,0 +1,32 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragmentos :: head}" />
+
+<body>
+	<header th:replace="~{fragmentos :: header}" />
+	<div class="container">
+		<form method="post" action="/psc" th:object="${psicologo}">
+			<input type="hidden" id="id" name="id" th:value="${psicologo.id}" />
+			<div class="mb-3">
+				<label for="nome" class="form-label">Nome</label>
+				<input type="text" class="form-control" th:field="${psicologo.nome}" />
+			</div>
+			<div class="mb-3">
+				<label for="sobrenome" class="form-label">Sobrenome</label>
+				<input type="text" class="form-control" th:field="${psicologo.sobrenome}" />
+			</div>
+			<div class="mb-3">
+				<label for="email" class="form-label">Email</label>
+				<input type="email" class="form-control" th:field="${psicologo.email}" />
+			</div>
+
+			<div class="mb-3" role="group">
+				<button type="button" class="btn btn-primary" onclick="window.history.back()">Voltar</button>
+				<button type="submit" class="btn btn-primary">Salvar</button>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

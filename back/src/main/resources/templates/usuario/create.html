@@ -1,0 +1,94 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragmentos :: head}" />
+
+<body>
+	<header th:replace="~{fragmentos :: header}" />
+	<div class="container">
+
+		<form class="row g-3" method="post" th:action="@{/user/create}" th:object=" ${usuario}">
+			<div class="alert alert-danger" th:if="${#fields.hasErrors()}">
+				<ul>
+					<li th:each="error : ${#fields.allErrors()}" th:text="${error}"></li>
+				</ul>
+			</div>
+
+			<!-- Exibir erros da API -->
+			<div class="alert alert-danger" th:if="${apiError != null}" th:text="${apiError}"></div>
+
+			<div class="col-md-4">
+				<label for="sobrenome" class="form-label">Nome*</label>
+				<input type="text" class="form-control" th:field="*{nome}" />
+			</div>
+
+			<div class="col-md-4">
+				<label for="sobrenome" class="form-label">Sobrenome*</label>
+				<input type="text" class="form-control" th:field="*{sobrenome}" />
+			</div>
+
+			<div class="col-md-4">
+				<label for="email" class="form-label">Email*</label>
+				<input type="email" class="form-control" th:field="*{email}" />
+			</div>
+
+			<div class="col-md-4">
+				<label for="whatsapp" class="form-label">Whatsapp*</label>
+				<input type="text" class="form-control" th:field="*{whatsapp}" />
+			</div>
+
+			<div class="col-md-4">
+				<label for="sexo">Sexo*</label>
+				<select class="form-select form-select-mb col-md-4" th:field="*{sexo}">
+					<option selected value="">Selecione</option>
+					<option th:value="'M'" th:text="Masculino"></option>
+					<option th:value="'F'" th:text="Feminino"></option>
+				</select>
+			</div>
+
+			<div class="col-md-4">
+				<label for="interesse">Interesse*</label>
+				<select select class="form-select form-select-mb col-md-4" th:field="*{interesse}">
+					<option selected value="">Selecione</option>
+					<option th:value="'M'" th:text="Masculino"></option>
+					<option th:value="'F'" th:text="Feminino"></option>
+					<option th:value="'A'" th:text="Ambos"></option>
+				</select>
+			</div>
+
+			<div class="col-md-4">
+				<label for="dtnascimento" class="form-label">Data de Nascimento*</label>
+				<input type="date" class="form-control" th:field="*{dtnascimento}" />
+			</div>
+
+			<div class="col-md-4">
+				<label for="estado" class="form-label">Estado</label>
+				<input type="text" class="form-control" th:field="*{estado}" />
+			</div>
+
+			<div class="col-md-4">
+				<label for="cidade" class="form-label">Cidade</label>
+				<input type="text" class="form-control" th:field="*{cidade}" />
+			</div>
+
+
+			<div class="col-md-4">
+				<label for="profissao" class="form-label">Profissão</label>
+				<input type="text" class="form-control" th:field="*{profissao}" />
+			</div>
+
+			<div class="col-md-4">
+				<label for="escolaridade" class="form-label">Escolaridade</label>
+				<input type="text" class="form-control" th:field="*{escolaridade}" />
+			</div>
+
+
+			<div class="col-md-12" role="group">
+				<button type="button" class="btn btn-primary" onclick="window.history.back()">Voltar</button>
+				<button type="submit" class="btn btn-primary">Salvar</button>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

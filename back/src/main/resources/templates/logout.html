@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Logout</h2>
+    <p>Você tem certeza que deseja sair?</p>
+
+    <form action="/perform-logout" method="post">
+        <button type="submit">Logout</button>
+    </form>
+    <a href="/">Cancelar</a> <!-- Link para voltar para a página inicial -->
+</body>
+</html>

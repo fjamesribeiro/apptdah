@@ -1,0 +1,116 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragmentos :: head}" />
+
+<body>
+
+	<script th:inline="javascript">
+
+		function filtrarPaciente() {
+			// Obtém o ID do paciente selecionado
+			var pacienteSelecionado = document.getElementById("pacientes").value;
+
+			// Verifica se algum paciente foi selecionado
+			if (pacienteSelecionado) {
+				// Faz uma requisição AJAX para buscar os rpd associados ao paciente selecionado
+				fetch('/rest/rpd/pac/' + pacienteSelecionado)
+					.then(response => response.json())
+					.then(rpds => {
+						// Limpa o contêiner rpdsContainer
+						var rpdsContainer = document.getElementById("rpd-container");
+
+						rpdsContainer.innerHTML = "";
+
+						// Itera sobre os rpds e adiciona cada um deles ao contêiner
+						rpds.forEach(rpd => {
+							var cardDiv = document.createElement("div");
+							cardDiv.className = "card text-center text-white bg-primary mb-3 mr-3 col-sm-6";
+
+							var cardBodyDiv = document.createElement("div");
+							cardBodyDiv.className = "card-header";
+							cardBodyDiv.innerText = rpd.id;
+
+							var ulElement = document.createElement("ul");
+							ulElement.className = "list-group list-group-flush";
+
+							var li1 = document.createElement("li");
+							li1.className = "list-group-item";
+							li1.innerText = formatarData(rpd.data);
+
+							var li2 = document.createElement("li");
+							li2.className = "list-group-item";
+							li2.innerText = rpd.situacao;
+
+							var li3 = document.createElement("li");
+							li3.className = "list-group-item";
+							li3.innerText = rpd.pensamento;
+
+							var linkElement = document.createElement("a");
+							linkElement.className = "card-link text-white";
+							linkElement.href = "/rpd/psc/list/" + rpd.id;
+							linkElement.innerText = "Visualizar";
+
+							cardBodyDiv.appendChild(ulElement);
+							cardBodyDiv.appendChild(li1);
+							cardBodyDiv.appendChild(li2);
+							cardBodyDiv.appendChild(li3);
+
+							var linkBodyDiv = document.createElement("div");
+							linkBodyDiv.className = "card-body";
+							linkBodyDiv.appendChild(linkElement);
+
+							cardDiv.appendChild(cardBodyDiv);
+							cardDiv.appendChild(linkBodyDiv);
+
+							rpdsContainer.appendChild(cardDiv);
+						});
+					})
+					.catch(error => console.error('Erro ao obter rpd:', error));
+
+			} else {
+				// Remove a tabela de rpd do contêiner se nenhum paciente for selecionado
+				var rpdsContainer = document.getElementById("rpd-container");
+				rpdsContainer.innerHTML = "";
+			}
+		}
+
+
+		function formatarData(data) {
+			var dataObj = new Date(data);
+			var dia = String(dataObj.getDate()).padStart(2, '0');
+			var mes = String(dataObj.getMonth() + 1).padStart(2, '0');
+			var ano = dataObj.getFullYear();
+			return dia + '/' + mes + '/' + ano;
+		}
+
+	</script>
+
+
+	<header th:replace="~{fragmentos :: header}" />
+	<div class="container text-center">
+		<div class="row">
+			<div class="col"></div>
+			<div class="col-6">
+				<label for="pacientes" class="form-label">Selecione o Paciente</label>
+				<select class="form-select" id="pacientes" onchange="filtrarPaciente()">
+					<option hidden value=""></option>
+					<th:block th:each="h : ${listPacientes}">
+						<option th:text="${h.nome + ' ' + h.sobrenome}" th:value="${h.id}" />
+					</th:block>
+				</select>
+			</div>
+			<div class="col"></div>
+		</div>
+
+		<div class="row p-5" id="rpd-container"></div>
+
+		<div class="row col-3">
+			<div class="mb-3" role="group">
+				<button type="button" class="btn btn-primary" onclick="window.history.back()">Voltar</button>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

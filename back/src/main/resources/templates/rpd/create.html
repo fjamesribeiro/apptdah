@@ -1,0 +1,142 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragmentos :: head}" />
+
+<body>
+
+	<script th:inline="javascript">
+		function filtrarSentimentos() {
+			var humorSelecionado = document.getElementById("humores").value;
+
+			if (humorSelecionado) {
+				fetch('/rest/rpd/sentimentos/humor/' + humorSelecionado)
+					.then(response => response.json())
+					.then(sentimentos => {
+						var checkboxContainer = document.getElementById("checkboxContainer");
+						var newCheckboxContainer = document.createElement('div');
+
+						// Remove todos os filhos do checkboxContainer
+						while (checkboxContainer.firstChild) {
+							checkboxContainer.removeChild(checkboxContainer.firstChild);
+						}
+
+						sentimentos.forEach(sentimento => {
+							var checkboxDiv = document.createElement('div');
+							checkboxDiv.className = 'form-check form-switch';
+
+							var checkboxInput = document.createElement('input');
+							checkboxInput.className = 'form-check-input';
+							checkboxInput.type = 'checkbox';
+							checkboxInput.value = sentimento.id;
+							checkboxInput.name = 'sentimentos';
+
+							var checkboxHiddenInput = document.createElement('input');
+							checkboxHiddenInput.type = 'hidden';
+							checkboxHiddenInput.name = '_sentimentos';
+							checkboxHiddenInput.value = 'on';
+
+							var checkboxLabel = document.createElement('label');
+							checkboxLabel.className = 'form-check-label';
+							checkboxLabel.textContent = sentimento.texto;
+
+							checkboxDiv.appendChild(checkboxInput);
+							checkboxDiv.appendChild(checkboxHiddenInput);
+							checkboxDiv.appendChild(checkboxLabel);
+
+							newCheckboxContainer.appendChild(checkboxDiv);
+						});
+
+						// Adiciona o novo checkboxContainer com os checkboxes atualizados
+						checkboxContainer.appendChild(newCheckboxContainer);
+					})
+					.catch(error => console.error('Erro ao obter sentimentos:', error));
+			}
+		}
+
+
+	</script>
+
+
+	<header th:replace="~{fragmentos :: header}" />
+
+	<div class="container">
+
+		<form method="post" action="/rpd" th:object="${rpd}">
+
+			<input type="hidden" th:field="*{id}" />
+
+			<input type="hidden" th:field="*{paciente.id}" />
+
+			<div class="mb-3">
+				<label class="form-label" for="data">Data</label>
+				<input type="date" class="form-control" th:field="*{data}" />
+			</div>
+
+			<div class="mb-3" role="group">
+				<label for="humores" class="form-label">Como está seu Humor?</label>
+
+				<select class="form-select" id="humores" th:field="*{humor.id}" onchange="filtrarSentimentos()">
+					<option hidden value=""></option>
+					<th:block th:each="h : ${listHumores}">
+						<option th:text="${h.texto}" th:value="${h.id}" />
+					</th:block>
+				</select>
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label" for="pensamento">O que aconteceu?</label>
+				<input type="text" class="form-control" th:field="*{situacao}" />
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label" for="pensamento">Que pensamento você teve?</label>
+				<input type="text" class="form-control" th:field="*{pensamento}" />
+			</div>
+
+			<div class="mb-3" role="group">
+				<label class="form-label">Como você está se sentindo?</label>
+
+				<div class="mb-3" role="group" id="checkboxContainer">
+					<th:block th:each="sentimento : ${listSentimentos}">
+						<div class="form-check form-switch">
+							<input class="form-check-input" type="checkbox" th:field="*{sentimentos}"
+								th:value="${sentimento.id}"
+								th:checked="${rpd.sentimentos != null and rpd.sentimentos.contains(sentimento)}" />
+							<label class="form-check-label" th:text="${sentimento.texto}"></label>
+						</div>
+					</th:block>
+				</div>
+			</div>
+
+			<div class="mb-3" role="group">
+				<label class="form-label">Que reações corporais você teve?</label>
+
+				<div class="mb-3" role="group">
+					<th:block th:each="fisilolgia : ${listFisiologias}">
+						<div class="form-check form-switch">
+							<input class="form-check-input" type="checkbox" th:field="*{fisiologias}"
+								th:value="${fisilolgia.id}"
+								th:checked="${rpd.getFisiologias() != null and rpd.getFisiologias().contains(fisilolgia)}" />
+							<label class="form-check-label" th:text="${fisilolgia.texto}"></label>
+						</div>
+					</th:block>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<label class="form-label" for="pensamento">O que você fez?</label>
+
+				<input type="text" class="form-control" th:field="*{comportamento}" />
+			</div>
+
+			<div class="mb-3" role="group">
+				<button type="button" class="btn btn-primary" onclick="window.history.back()">Voltar</button>
+				<button type="submit" class="btn btn-primary">Salvar</button>
+			</div>
+
+		</form>
+	</div>
+</body>
+
+</html>
