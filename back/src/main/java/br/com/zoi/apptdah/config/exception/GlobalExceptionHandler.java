@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,6 +34,18 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<RestErrorMessage> runTime(RuntimeException ex) {
 		RestErrorMessage errorMessage = new RestErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+	}
+
+	@ExceptionHandler(ExpiredJwtException.class)
+	public ResponseEntity<RestErrorMessage> handleExpiredJwtException(ExpiredJwtException ex) {
+		RestErrorMessage errorMessage = new RestErrorMessage(HttpStatus.UNAUTHORIZED, "Token JWT expirado");
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
+	}
+
+	@ExceptionHandler(JwtException.class)
+	public ResponseEntity<RestErrorMessage> handleJwtException(JwtException ex) {
+		RestErrorMessage errorMessage = new RestErrorMessage(HttpStatus.UNAUTHORIZED, "Token JWT inválido");
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
 	}
 
 }

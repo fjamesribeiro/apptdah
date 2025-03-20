@@ -1,94 +1,65 @@
 package br.com.zoi.apptdah.config.security;
 
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.lang.NonNull;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import com.nimbusds.jose.jwk.JWKSet;
-import com.nimbusds.jose.jwk.RSAKey;
-import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 
 @Configuration
 @EnableWebSecurity
 public class SecConfig {
 
-	@Value("${jwt.public-key}")
-	private RSAPublicKey key;
-
-	@Value("${jwt.private-key}")
-	private RSAPrivateKey priv;
-
-	@Autowired
-	private CustomOAuth2UserService customOAuth2UserService;
-
-	@Autowired
-	private OAuth2AuthenticationSuccessHandler successHandler;
-
-	
 	@Bean
 	WebMvcConfigurer corsConfigurer() {
-	    return new WebMvcConfigurer() {
-	        @Override
-	        public void addCorsMappings(CorsRegistry registry) {
-	            registry.addMapping("/**")
-	                .allowedOrigins("http://localhost:3000", "http://localhost:19006") // React e React Native
-	                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-	                .allowCredentials(true);
-	        }
-	    };
-	}
-	
-	
-	@Bean
-	SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.csrf(csrf -> csrf.disable())
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**", "/oauth2/**").permitAll() // Permite login normal
-						.anyRequest().authenticated())
-				.oauth2Login(
-						oauth2 -> oauth2.userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
-								.successHandler(successHandler))
-				.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
-		return httpSecurity.build();
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(@NonNull CorsRegistry registry) {
+				registry.addMapping("/**").allowedOrigins("http://localhost:3000", "http://localhost:19006") // React e
+																												// React
+																												// Native
+						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS").allowCredentials(true);
+			}
+		};
 	}
 
 	@Bean
 	JwtDecoder jwtDecoder() {
-		return NimbusJwtDecoder.withPublicKey(key).build();
+		return NimbusJwtDecoder.withJwkSetUri("https://hnmyxslmrrsbgljvxmr.supabase.co/auth/v1/keys").build();
 	}
 
 	@Bean
-	JwtEncoder jwtEncoder() {
-		RSAKey jwk = new com.nimbusds.jose.jwk.RSAKey.Builder(key).privateKey(priv).build();
-		var jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
-		return new NimbusJwtEncoder(jwks);
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.csrf(csrf -> csrf.disable())
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/public/**").permitAll() // Rotas públicas
+						.anyRequest().authenticated() // Qualquer outra rota exige autenticação
+				).oauth2ResourceServer(oauth2 -> oauth2
+						.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter())
+
+						));
+
+		return http.build();
 	}
 
 	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+	JwtAuthenticationConverter jwtAuthenticationConverter() {
+		JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+		grantedAuthoritiesConverter.setAuthoritiesClaimName("roles"); // Define onde estão as roles no token
+		grantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+
+		JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
+		jwtConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
+
+		return jwtConverter;
 	}
 
-	@Bean
-	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-			throws Exception {
-		return authenticationConfiguration.getAuthenticationManager();
-	}
 }
