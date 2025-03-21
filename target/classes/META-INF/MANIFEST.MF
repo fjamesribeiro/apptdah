@@ -1,0 +1,53 @@
+Manifest-Version: 1.0
+Build-Jdk-Spec: 21
+Class-Path: spring-boot-starter-actuator-3.3.9.jar spring-boot-starter-3
+ .3.9.jar spring-boot-starter-logging-3.3.9.jar logback-classic-1.5.16.j
+ ar logback-core-1.5.16.jar log4j-to-slf4j-2.23.1.jar log4j-api-2.23.1.j
+ ar jul-to-slf4j-2.0.16.jar jakarta.annotation-api-2.1.1.jar snakeyaml-2
+ .2.jar spring-boot-actuator-autoconfigure-3.3.9.jar spring-boot-actuato
+ r-3.3.9.jar jackson-datatype-jsr310-2.17.3.jar micrometer-observation-1
+ .13.11.jar micrometer-commons-1.13.11.jar micrometer-jakarta9-1.13.11.j
+ ar micrometer-core-1.13.11.jar HdrHistogram-2.2.2.jar LatencyUtils-2.0.
+ 3.jar spring-boot-starter-web-3.3.9.jar spring-boot-starter-json-3.3.9.
+ jar jackson-datatype-jdk8-2.17.3.jar jackson-module-parameter-names-2.1
+ 7.3.jar spring-boot-starter-tomcat-3.3.9.jar tomcat-embed-core-10.1.36.
+ jar tomcat-embed-websocket-10.1.36.jar spring-web-6.1.17.jar spring-bea
+ ns-6.1.17.jar spring-webmvc-6.1.17.jar spring-context-6.1.17.jar spring
+ -expression-6.1.17.jar spring-boot-devtools-3.3.9.jar spring-boot-3.3.9
+ .jar spring-boot-autoconfigure-3.3.9.jar spring-boot-starter-validation
+ -3.3.9.jar tomcat-embed-el-10.1.36.jar hibernate-validator-8.0.2.Final.
+ jar jakarta.validation-api-3.0.2.jar classmate-1.7.0.jar jboss-logging-
+ 3.5.3.Final.jar jaxb-runtime-4.0.5.jar jaxb-core-4.0.5.jar angus-activa
+ tion-2.0.2.jar txw2-4.0.5.jar istack-commons-runtime-4.1.2.jar thymelea
+ f-layout-dialect-3.3.0.jar groovy-4.0.25.jar groovy-extensions-2.1.0.ja
+ r thymeleaf-expression-processor-3.2.0.jar thymeleaf-3.1.3.RELEASE.jar 
+ ognl-3.3.4.jar javassist-3.29.0-GA.jar attoparser-2.0.7.RELEASE.jar unb
+ escape-1.1.6.RELEASE.jar slf4j-api-2.0.16.jar spring-boot-starter-data-
+ jpa-3.3.9.jar spring-boot-starter-aop-3.3.9.jar aspectjweaver-1.9.22.1.
+ jar spring-boot-starter-jdbc-3.3.9.jar HikariCP-5.1.0.jar spring-jdbc-6
+ .1.17.jar hibernate-core-6.5.3.Final.jar jakarta.persistence-api-3.1.0.
+ jar jakarta.transaction-api-2.0.1.jar hibernate-commons-annotations-6.0
+ .6.Final.jar jandex-3.1.2.jar byte-buddy-1.14.19.jar jakarta.inject-api
+ -2.0.1.jar antlr4-runtime-4.13.0.jar spring-data-jpa-3.3.9.jar spring-d
+ ata-commons-3.3.9.jar spring-orm-6.1.17.jar spring-tx-6.1.17.jar spring
+ -aspects-6.1.17.jar spring-boot-starter-security-3.3.9.jar spring-aop-6
+ .1.17.jar spring-security-config-6.3.7.jar spring-security-web-6.3.7.ja
+ r thymeleaf-extras-springsecurity6-3.1.3.RELEASE.jar thymeleaf-spring6-
+ 3.1.3.RELEASE.jar spring-boot-starter-thymeleaf-3.3.9.jar postgresql-42
+ .7.5.jar checker-qual-3.48.3.jar lombok-1.18.36.jar mapstruct-1.5.5.Fin
+ al.jar spring-security-oauth2-jose-6.3.7.jar spring-security-core-6.3.7
+ .jar spring-security-crypto-6.3.7.jar spring-security-oauth2-core-6.3.7
+ .jar spring-core-6.1.17.jar spring-jcl-6.1.17.jar nimbus-jose-jwt-9.37.
+ 3.jar jcip-annotations-1.0-1.jar jjwt-jackson-0.12.3.jar jjwt-api-0.12.
+ 3.jar jackson-databind-2.17.3.jar jackson-annotations-2.17.3.jar jackso
+ n-core-2.17.3.jar spring-boot-starter-oauth2-client-3.3.9.jar spring-se
+ curity-oauth2-client-6.3.7.jar oauth2-oidc-sdk-9.43.6.jar content-type-
+ 2.2.jar lang-tag-1.7.jar spring-boot-starter-oauth2-resource-server-3.3
+ .9.jar spring-security-oauth2-resource-server-6.3.7.jar jakarta.xml.bin
+ d-api-4.0.2.jar jakarta.activation-api-2.1.3.jar json-smart-2.5.2.jar a
+ ccessors-smart-2.5.2.jar asm-9.7.1.jar
+Implementation-Title: apptdah
+Implementation-Version: 1.0.0
+Main-Class: br.com.zoi.apptdah.ApptdahApplication
+Created-By: Maven Integration for Eclipse
+
