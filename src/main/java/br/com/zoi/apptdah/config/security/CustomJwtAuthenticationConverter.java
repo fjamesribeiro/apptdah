@@ -1,29 +1,39 @@
 package br.com.zoi.apptdah.config.security;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.UUID;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.NonNull;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.stereotype.Component;
 
-public class CustomJwtAuthenticationConverter implements Converter<Jwt, JwtAuthenticationToken> {
+import br.com.zoi.apptdah.dto.UserPrincipal;
 
-    private final JwtGrantedAuthoritiesConverter defaultConverter = new JwtGrantedAuthoritiesConverter();
+@Component
+public class CustomJwtAuthenticationConverter implements Converter<Jwt, AbstractAuthenticationToken> {
 
-    @Override
-    public JwtAuthenticationToken convert(@NonNull Jwt jwt) {
-        Collection<GrantedAuthority> authorities = new HashSet<>(defaultConverter.convert(jwt));
+	@Override
+	public AbstractAuthenticationToken convert(@NonNull Jwt jwt) {
+		String userId = jwt.getClaim("sub"); // ID do usuário no Supabase
+		String email = jwt.getClaim("email");
+		String role = jwt.getClaim("role"); // A role agora é extraída do token
 
-        // Obtém a role do Supabase do JWT e adiciona como GrantedAuthority
-        String role = jwt.getClaim("role");
-        if (role != null) {
-            authorities.add(() -> "ROLE_" + role.toUpperCase());
-        }
+		Collection<GrantedAuthority> authorities = new ArrayList<>();
+		
+		// Se a role não estiver definida no primeiro login, assume "BASIC"
+		if (role != null && !role.isBlank()) {
+			authorities.add(new SimpleGrantedAuthority(role.toUpperCase()));
+		} else {
+			authorities.add(new SimpleGrantedAuthority("BASIC"));
+		}
 
-        return new JwtAuthenticationToken(jwt, authorities);
-    }
+		return new UsernamePasswordAuthenticationToken(new UserPrincipal(UUID.fromString(userId), email, role), jwt,
+				authorities);
+	}
 }

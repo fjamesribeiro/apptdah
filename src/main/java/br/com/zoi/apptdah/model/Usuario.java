@@ -1,15 +1,13 @@
 package br.com.zoi.apptdah.model;
 
 import java.time.LocalDate;
-import java.util.Set;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,15 +29,21 @@ public class Usuario{
 
 	@Column(name = "dtnascimento")
 	private LocalDate dtnascimento;
+	
+	@Column(nullable = false, unique = true)
+    private String email;	
 
 	@Column(name = "sexo")
 	private String sexo;
+	
+    @Column(nullable = false)
+    private boolean confirmado;	
 
 	@Column(name = "diagnostico")
 	private String diagnostico;
 
-	@ManyToMany
-	@JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles;
+	@ManyToOne
+	@JoinColumn(name = "role_id", nullable = false)
+	private Role role;
 
 }

@@ -36,11 +36,11 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
 	}
 
-	@ExceptionHandler(ExpiredJwtException.class)
-	public ResponseEntity<RestErrorMessage> handleExpiredJwtException(ExpiredJwtException ex) {
-		RestErrorMessage errorMessage = new RestErrorMessage(HttpStatus.UNAUTHORIZED, "Token JWT expirado");
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
-	}
+//	@ExceptionHandler(ExpiredJwtException.class)
+//	public ResponseEntity<RestErrorMessage> handleExpiredJwtException(ExpiredJwtException ex) {
+//		RestErrorMessage errorMessage = new RestErrorMessage(HttpStatus.UNAUTHORIZED, "Token JWT expirado");
+//		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
+//	}
 
 	@ExceptionHandler(JwtException.class)
 	public ResponseEntity<RestErrorMessage> handleJwtException(JwtException ex) {

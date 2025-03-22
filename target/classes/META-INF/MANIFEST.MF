@@ -16,36 +16,31 @@ Class-Path: spring-boot-starter-actuator-3.3.9.jar spring-boot-starter-3
  -expression-6.1.17.jar spring-boot-devtools-3.3.9.jar spring-boot-3.3.9
  .jar spring-boot-autoconfigure-3.3.9.jar spring-boot-starter-validation
  -3.3.9.jar tomcat-embed-el-10.1.36.jar hibernate-validator-8.0.2.Final.
- jar jakarta.validation-api-3.0.2.jar classmate-1.7.0.jar jboss-logging-
- 3.5.3.Final.jar jaxb-runtime-4.0.5.jar jaxb-core-4.0.5.jar angus-activa
- tion-2.0.2.jar txw2-4.0.5.jar istack-commons-runtime-4.1.2.jar thymelea
- f-layout-dialect-3.3.0.jar groovy-4.0.25.jar groovy-extensions-2.1.0.ja
- r thymeleaf-expression-processor-3.2.0.jar thymeleaf-3.1.3.RELEASE.jar 
- ognl-3.3.4.jar javassist-3.29.0-GA.jar attoparser-2.0.7.RELEASE.jar unb
- escape-1.1.6.RELEASE.jar slf4j-api-2.0.16.jar spring-boot-starter-data-
- jpa-3.3.9.jar spring-boot-starter-aop-3.3.9.jar aspectjweaver-1.9.22.1.
- jar spring-boot-starter-jdbc-3.3.9.jar HikariCP-5.1.0.jar spring-jdbc-6
- .1.17.jar hibernate-core-6.5.3.Final.jar jakarta.persistence-api-3.1.0.
- jar jakarta.transaction-api-2.0.1.jar hibernate-commons-annotations-6.0
- .6.Final.jar jandex-3.1.2.jar byte-buddy-1.14.19.jar jakarta.inject-api
- -2.0.1.jar antlr4-runtime-4.13.0.jar spring-data-jpa-3.3.9.jar spring-d
- ata-commons-3.3.9.jar spring-orm-6.1.17.jar spring-tx-6.1.17.jar spring
- -aspects-6.1.17.jar spring-boot-starter-security-3.3.9.jar spring-aop-6
- .1.17.jar spring-security-config-6.3.7.jar spring-security-web-6.3.7.ja
- r thymeleaf-extras-springsecurity6-3.1.3.RELEASE.jar thymeleaf-spring6-
- 3.1.3.RELEASE.jar spring-boot-starter-thymeleaf-3.3.9.jar postgresql-42
- .7.5.jar checker-qual-3.48.3.jar lombok-1.18.36.jar mapstruct-1.5.5.Fin
- al.jar spring-security-oauth2-jose-6.3.7.jar spring-security-core-6.3.7
- .jar spring-security-crypto-6.3.7.jar spring-security-oauth2-core-6.3.7
- .jar spring-core-6.1.17.jar spring-jcl-6.1.17.jar nimbus-jose-jwt-9.37.
- 3.jar jcip-annotations-1.0-1.jar jjwt-jackson-0.12.3.jar jjwt-api-0.12.
- 3.jar jackson-databind-2.17.3.jar jackson-annotations-2.17.3.jar jackso
- n-core-2.17.3.jar spring-boot-starter-oauth2-client-3.3.9.jar spring-se
- curity-oauth2-client-6.3.7.jar oauth2-oidc-sdk-9.43.6.jar content-type-
- 2.2.jar lang-tag-1.7.jar spring-boot-starter-oauth2-resource-server-3.3
- .9.jar spring-security-oauth2-resource-server-6.3.7.jar jakarta.xml.bin
- d-api-4.0.2.jar jakarta.activation-api-2.1.3.jar json-smart-2.5.2.jar a
- ccessors-smart-2.5.2.jar asm-9.7.1.jar
+ jar jakarta.validation-api-3.0.2.jar jboss-logging-3.5.3.Final.jar clas
+ smate-1.7.0.jar spring-boot-starter-data-jpa-3.3.9.jar spring-boot-star
+ ter-aop-3.3.9.jar aspectjweaver-1.9.22.1.jar spring-boot-starter-jdbc-3
+ .3.9.jar HikariCP-5.1.0.jar spring-jdbc-6.1.17.jar hibernate-core-6.5.3
+ .Final.jar jakarta.persistence-api-3.1.0.jar jakarta.transaction-api-2.
+ 0.1.jar hibernate-commons-annotations-6.0.6.Final.jar jandex-3.1.2.jar 
+ byte-buddy-1.14.19.jar jaxb-runtime-4.0.5.jar jaxb-core-4.0.5.jar angus
+ -activation-2.0.2.jar txw2-4.0.5.jar istack-commons-runtime-4.1.2.jar j
+ akarta.inject-api-2.0.1.jar antlr4-runtime-4.13.0.jar spring-data-jpa-3
+ .3.9.jar spring-data-commons-3.3.9.jar spring-orm-6.1.17.jar spring-tx-
+ 6.1.17.jar slf4j-api-2.0.16.jar spring-aspects-6.1.17.jar spring-boot-s
+ tarter-security-3.3.9.jar spring-aop-6.1.17.jar spring-security-config-
+ 6.3.7.jar spring-security-web-6.3.7.jar postgresql-42.7.5.jar checker-q
+ ual-3.48.3.jar lombok-1.18.36.jar modelmapper-3.1.0.jar spring-security
+ -oauth2-jose-6.3.7.jar spring-security-core-6.3.7.jar spring-security-c
+ rypto-6.3.7.jar spring-security-oauth2-core-6.3.7.jar spring-core-6.1.1
+ 7.jar spring-jcl-6.1.17.jar nimbus-jose-jwt-9.37.3.jar jcip-annotations
+ -1.0-1.jar jjwt-jackson-0.12.3.jar jjwt-api-0.12.3.jar jackson-databind
+ -2.17.3.jar jackson-annotations-2.17.3.jar spring-boot-starter-oauth2-c
+ lient-3.3.9.jar spring-security-oauth2-client-6.3.7.jar oauth2-oidc-sdk
+ -9.43.6.jar content-type-2.2.jar lang-tag-1.7.jar spring-boot-starter-o
+ auth2-resource-server-3.3.9.jar spring-security-oauth2-resource-server-
+ 6.3.7.jar java-jwt-4.5.0.jar jackson-core-2.17.3.jar jakarta.xml.bind-a
+ pi-4.0.2.jar jakarta.activation-api-2.1.3.jar json-smart-2.5.2.jar acce
+ ssors-smart-2.5.2.jar asm-9.7.1.jar
 Implementation-Title: apptdah
 Implementation-Version: 1.0.0
 Main-Class: br.com.zoi.apptdah.ApptdahApplication

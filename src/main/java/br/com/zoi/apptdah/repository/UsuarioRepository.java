@@ -10,4 +10,5 @@ import br.com.zoi.apptdah.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, UUID> {
 	Optional<Usuario> findByUserId(UUID userId);
 
+	Optional<Usuario> findByEmail(String email);
 }

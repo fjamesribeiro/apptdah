@@ -23,7 +23,7 @@ spring:
           auto: update # Pode ser 'create', 'create-drop' ou 'update'
 
 server:
-  port: 8082
+  port: 8085
   error:
     include-stacktrace: never
 

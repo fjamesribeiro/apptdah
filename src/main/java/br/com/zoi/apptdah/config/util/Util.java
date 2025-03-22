@@ -27,4 +27,5 @@ public class Util {
 	public static void copyProperties(Object src, Object target) {
 		BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
 	}
+
 }
